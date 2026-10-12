@@ -4,7 +4,7 @@ class App {
 
     fun run() {
         println("== 명언 앱 ==")
-        val wiseList = mutableListOf<Map<String, String>>()
+        val wiseSayings = mutableListOf<WiseSaying>()
         var wiseId = 0
 
         while (true) {
@@ -18,20 +18,16 @@ class App {
                     val wise = readln()
                     print("작가 : ")
                     val author = readln()
-                    val map = mutableMapOf<String, String>()
-                    map.put("wise", wise)
-                    map.put("author", author)
-                    wiseList.add(map)
-                    println("${++wiseId}번 명언이 등록되었습니다.")
+                    val wiseSaying = WiseSaying(++wiseId, author, wise).also {
+                        wiseSayings.add(it)
+                    }
+                    println("${wiseSaying.id}번 명언이 등록되었습니다.")
                 }
-
                 "목록" -> {
                     println("번호 / 작가 / 명언")
                     println("--------------------------")
-                    (wiseId - 1 downTo 0).forEach { i ->
-                        val map = wiseList.get(i)
-                        println("${i + 1} / ${map.getValue("wise")} / ${map.getValue("author")}")
-                    }
+                    wiseSayings.asReversed()
+                        .forEach { (id, author, wise) -> println("$id / $author / $wise") }
                 }
             }
         }
