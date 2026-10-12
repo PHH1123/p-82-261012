@@ -2,5 +2,9 @@ package com.back
 
 fun main() {
 
-    App().run()
+    App(
+        WiseSayingController(),
+        SystemController()
+    )
+        .run()
 }
