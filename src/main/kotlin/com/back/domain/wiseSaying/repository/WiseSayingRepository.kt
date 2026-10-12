@@ -1,6 +1,6 @@
-package com.back.repository
+package com.back.domain.wiseSaying.repository
 
-import com.back.WiseSaying
+import com.back.domain.wiseSaying.entity.WiseSaying
 
 class WiseSayingRepository {
     var wiseId = 0

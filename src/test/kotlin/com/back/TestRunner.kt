@@ -10,7 +10,7 @@ object TestRunner {
     private val originalOut: PrintStream = System.out
 
     fun run(input: String): String {
-        // 표준 입력 리다이렉팅
+            // 표준 입력 리다이렉팅
         // 키보드 입력 => 문자열 입력
         System.setIn(
             ByteArrayInputStream(

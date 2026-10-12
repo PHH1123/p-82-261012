@@ -1,5 +1,8 @@
 package com.back
 
+import com.back.domain.system.controller.SystemController
+import com.back.domain.wiseSaying.controller.WiseSayingController
+
 class App(
     val wiseSayingController: WiseSayingController = WiseSayingController(),
     val systemController: SystemController = SystemController()
