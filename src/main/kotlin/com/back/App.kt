@@ -43,7 +43,7 @@ class App {
                         println("${id}번 명언은 존재하지 않습니다.")
                         continue
                     }
-                    wiseSayings.removeIf { it.id == id }
+                    wiseSayings.remove(wiseSaying)
                     println("${id}번 명언이 삭제되었습니다.")
                 }
             }
