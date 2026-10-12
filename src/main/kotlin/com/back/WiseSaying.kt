@@ -1,13 +1,18 @@
 package com.back
 
 data class WiseSaying(
-    val id: Int,
+    var id: Int = 0,
     var author: String,
     var wise: String,
 ) {
 
-    fun modify(author: String, wise: String) {
+    fun modify(author: String, wise: String): WiseSaying {
         this.author = author
         this.wise = wise
+        return this
+    }
+
+    fun isNew(): Boolean {
+        return id == 0
     }
 }
