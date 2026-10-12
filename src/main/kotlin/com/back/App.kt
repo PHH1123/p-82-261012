@@ -1,8 +1,8 @@
 package com.back
 
 class App(
-    val wiseSayingController: WiseSayingController,
-    val systemController: SystemController
+    val wiseSayingController: WiseSayingController = WiseSayingController(),
+    val systemController: SystemController = SystemController()
 ){
 
     fun run() {
@@ -17,7 +17,7 @@ class App(
             when (action) {
                 "종료" -> {
                     systemController.exit()
-                    return
+                    break
                 }
                 "등록" -> wiseSayingController.write()
                 "목록" -> wiseSayingController.list()

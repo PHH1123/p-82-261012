@@ -1,6 +1,10 @@
 package com.back
 
-class WiseSayingController(val wiseSayingService: WiseSayingService) {
+import com.back.service.WiseSayingService
+
+class WiseSayingController(
+    val wiseSayingService: WiseSayingService = WiseSayingService()
+) {
 
     var wiseId = 0
     val wiseSayings = mutableListOf<WiseSaying>()
@@ -15,7 +19,7 @@ class WiseSayingController(val wiseSayingService: WiseSayingService) {
         println("${wiseSaying.id}번 명언이 등록되었습니다.")
     }
 
-    fun list()  {
+    fun list() {
         println("번호 / 작가 / 명언")
         println("--------------------------")
         wiseSayingService.findListDesc()

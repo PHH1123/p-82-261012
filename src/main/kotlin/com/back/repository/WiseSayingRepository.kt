@@ -1,4 +1,6 @@
-package com.back
+package com.back.repository
+
+import com.back.WiseSaying
 
 class WiseSayingRepository {
     var wiseId = 0

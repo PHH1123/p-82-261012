@@ -1,7 +1,10 @@
-package com.back
+package com.back.service
+
+import com.back.WiseSaying
+import com.back.repository.WiseSayingRepository
 
 class WiseSayingService
-    (val wiseSayingRepository: WiseSayingRepository) {
+    (val wiseSayingRepository: WiseSayingRepository = WiseSayingRepository()) {
 
     fun add(wise: String, author: String): WiseSaying {
         WiseSaying(author = author, wise = wise).also {
