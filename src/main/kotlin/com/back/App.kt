@@ -36,6 +36,11 @@ class App {
                 "삭제" -> {
                     val id = rq.getParamValueAsInt("id", 0)
 
+                    if (id <= 0) {
+                        println("올바른 id를 입력해주세요")
+                        continue
+                    }
+
                     val wiseSaying = wiseSayings.firstOrNull {
                         it.id == id
                     }
