@@ -3,7 +3,7 @@ package com.back
 fun main() {
 
     App(
-        WiseSayingController(),
+        WiseSayingController(WiseSayingService()),
         SystemController()
     )
         .run()

@@ -1,6 +1,7 @@
 package com.back
 
-class WiseSayingController {
+class WiseSayingController(val wiseSayingService: WiseSayingService) {
+
     var wiseId = 0
     val wiseSayings = mutableListOf<WiseSaying>()
 
@@ -9,16 +10,15 @@ class WiseSayingController {
         val wise = readln()
         print("작가 : ")
         val author = readln()
-        val wiseSaying = WiseSaying(++wiseId, author, wise).also {
-            wiseSayings.add(it)
-        }
+
+        val wiseSaying = wiseSayingService.add(wise, author)
         println("${wiseSaying.id}번 명언이 등록되었습니다.")
     }
 
     fun list()  {
         println("번호 / 작가 / 명언")
         println("--------------------------")
-        wiseSayings.asReversed()
+        wiseSayingService.findListDesc()
             .forEach { println("${it.id} / ${it.author} / ${it.wise}") }
     }
 
@@ -30,14 +30,13 @@ class WiseSayingController {
             return
         }
 
-        val wiseSaying = wiseSayings.firstOrNull {
-            it.id == id
-        }
+        val wiseSaying = wiseSayingService.findById(id)
         if (wiseSaying == null) {
             println("${id}번 명언은 존재하지 않습니다.")
             return
         }
-        wiseSayings.remove(wiseSaying)
+
+        wiseSayingService.delete(wiseSaying)
         println("${id}번 명언이 삭제되었습니다.")
     }
 
@@ -49,9 +48,7 @@ class WiseSayingController {
             return
         }
 
-        val wiseSaying = wiseSayings.firstOrNull {
-            it.id == id
-        }
+        val wiseSaying = wiseSayingService.findById(id)
         if (wiseSaying == null) {
             println("${id}번 명언은 존재하지 않습니다.")
             return
@@ -63,6 +60,6 @@ class WiseSayingController {
         println("작가(기존) : ${wiseSaying.author}")
         print("작가 : ")
         val author = readln()
-        wiseSaying.modify(author, wise)
+        wiseSayingService.modify(wiseSaying, author, wise)
     }
 }
