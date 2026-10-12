@@ -1,16 +1,28 @@
 package com.back
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 fun main() {
-    val name = "Kotlin"
-    //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-    // to see how IntelliJ IDEA suggests fixing it.
-    println("Hello, " + name + "!")
 
-    for (i in 1..5) {
-        //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-        // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-        println("i = $i")
+    println("== 명언 앱 ==")
+    val wiseList = mutableListOf<Map<String, String>>()
+    var wiseId = 0
+
+    while (true) {
+        print("명령) ")
+        val input = readln()
+
+        when (input) {
+            "등록" -> {
+                print("명언 : ")
+                val wise = readln()
+                print("작가 : ")
+                val author = readln()
+                val map = mutableMapOf<String, String>()
+                map.put("wise", wise)
+                map.put("author", author)
+                wiseList.add(map)
+                println("${++wiseId}번 명언이 등록되었습니다.")
+            }
+            "종료" -> break
+        }
     }
 }
