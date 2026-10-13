@@ -18,9 +18,40 @@ class WiseSayingFileRepository : WiseSayingRepository {
         return wiseSaying
             .takeIf { it.isNew() }
             .also {
-                wiseSaying.id = ++lastId
+                wiseSaying.id = genNextId()
                 saveOnDisk(wiseSaying)
             } ?: wiseSaying
+    }
+
+    fun saveLastId(lastId: Int) {
+        mkTableDirsIfNotExists()
+
+        tableDirPath.resolve("lastId.txt")
+            .toFile()
+            .writeText(lastId.toString())
+    }
+
+    fun loadLastId(): Int {
+        // try-catch와 비슷 아래는 예외가 발생하면 0을 반환하겠다는 의미
+        // finally는 못씀
+        return runCatching {
+            tableDirPath.resolve("lastId.txt")
+                .toFile()
+                .readText()
+                .toInt()
+        }.getOrElse { 0 }
+
+        // 아래는 엘비스 연산자를 이용한 방식
+//        return tableDirPath.resolve("lastId.txt")
+//            .toFile()
+//            .readText()
+//            .toIntOrNull() ?: 0
+    }
+
+    fun genNextId(): Int {
+        return (loadLastId() + 1).also {
+            saveLastId(it)
+        }
     }
 
     private fun saveOnDisk(wiseSaying: WiseSaying) {
