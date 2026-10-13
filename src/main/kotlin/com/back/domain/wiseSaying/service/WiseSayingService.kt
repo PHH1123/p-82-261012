@@ -27,4 +27,12 @@ class WiseSayingService
     fun build() {
         wiseSayingMemRepository.build()
     }
+
+    fun findByKeyword(keywordType: String, keyword: String): List<WiseSaying> {
+        return when ( keywordType ) {
+            "author" -> wiseSayingRepository.findByAuthorLike("%$keyword%")
+            "content" -> wiseSayingRepository.findByAuthorContent("%$keyword%")
+            else -> wiseSayingRepository.findByAuthorContent("%$keyword%")
+        }
+    }
 }

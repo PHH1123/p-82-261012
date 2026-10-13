@@ -22,11 +22,29 @@ class WiseSayingController(
         println("${wiseSaying.id}번 명언이 등록되었습니다.")
     }
 
-    fun list() {
+    fun list(rq: Rq) {
+
+        val keywordType = rq.getParamValue("keywordType", "content")
+        val keyword = rq.getParamValue("keyword", "")
+
+        val wiseSayings = if (keyword.isNotBlank())
+            wiseSayingService.findByKeyword(keywordType, keyword)
+        else
+            wiseSayingService.findListDesc()
+
+
+        if (keyword.isNotBlank()) {
+            println("----------------------")
+            println("검색타입 : $keywordType")
+            println("검색어 : $keyword")
+            println("----------------------")
+        }
+
         println("번호 / 작가 / 명언")
         println("--------------------------")
-        wiseSayingService.findListDesc()
-            .forEach { println("${it.id} / ${it.author} / ${it.wise}") }
+        wiseSayings.forEach {
+                println("${it.id} / ${it.author} / ${it.wise}")
+            }
     }
 
     fun delete(rq: Rq) {
