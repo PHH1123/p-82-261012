@@ -1,8 +1,10 @@
 package com.back.domain.wiseSaying.repository
 
 import com.back.AppConfig
+import com.back.JsonUtil
 import com.back.domain.wiseSaying.entity.WiseSaying
 import java.nio.file.Path
+import kotlin.io.resolve
 
 class WiseSayingFileRepository : WiseSayingRepository {
 
@@ -96,5 +98,20 @@ class WiseSayingFileRepository : WiseSayingRepository {
 
     override fun clear() {
         tableDirPath.toFile().deleteRecursively()
+    }
+
+    override fun build() {
+        mkTableDirsIfNotExists()
+
+        val mapList = findListDesc()
+            .map(WiseSaying::map)
+
+        JsonUtil.toString(mapList)
+            .let {
+                tableDirPath
+                    .resolve("data.json")
+                    .toFile()
+                    .writeText(it)
+            }
     }
 }

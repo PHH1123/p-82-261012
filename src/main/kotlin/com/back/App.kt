@@ -26,6 +26,7 @@ class App(
                 "목록" -> wiseSayingController.list()
                 "삭제" -> wiseSayingController.delete(rq)
                 "수정" -> wiseSayingController.modify(rq)
+                "빌드" -> wiseSayingController.build()
             }
         }
     }

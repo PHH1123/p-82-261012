@@ -1,6 +1,6 @@
 package com.back
 
-import com.back.SingletonScope.wiseSayingMemRepository
+import com.back.SingletonScope.wiseSayingFileRepository
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -11,7 +11,7 @@ class WiseSayingControllerTest {
 
     @BeforeEach
     fun init() {
-        wiseSayingMemRepository.clear()
+        wiseSayingFileRepository.clear()
     }
 
     @Test
@@ -91,5 +91,25 @@ class WiseSayingControllerTest {
         assertThat(out)
             .doesNotContain("1 / 작자미상 / 현재를 사랑하라.")
             .contains("1 / 소크라테스 / 너 자신을 알라")
+    }
+
+    @Test
+    fun `빌드`() {
+        val result = TestRunner.run(
+            """
+            등록
+            나의 죽음을 적들에게 알리지 말라.
+            충무공 이순신
+            등록
+            천재는 99%의 노력과 1%의 영감이다.
+            에디슨
+            빌드
+        """
+        )
+
+        println("result: $result")
+
+        assertThat(result)
+            .contains("data.json 파일의 내용이 갱신되었습니다.");
     }
 }

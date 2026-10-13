@@ -26,4 +26,8 @@ class WiseSayingMemRepository : WiseSayingRepository{
         wiseId = 0
         wiseSayings.clear()
     }
+
+    override fun build() {
+        println("WiseSayingMemRepository builded")
+    }
 }

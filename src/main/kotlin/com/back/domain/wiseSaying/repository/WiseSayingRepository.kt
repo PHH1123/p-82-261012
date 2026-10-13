@@ -8,4 +8,5 @@ interface WiseSayingRepository {
     fun findById(id: Int): WiseSaying?
     fun delete(wiseSaying: WiseSaying): Boolean
     fun clear()
+    fun build()
 }
