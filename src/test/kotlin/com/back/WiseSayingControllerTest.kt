@@ -1,5 +1,6 @@
 package com.back
 
+import com.back.SingletonScope.wiseSayingMemRepository
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -10,7 +11,7 @@ class WiseSayingControllerTest {
 
     @BeforeEach
     fun init() {
-        SingletonScope.wiseSayingRepository.clear()
+        wiseSayingMemRepository.clear()
     }
 
     @Test
