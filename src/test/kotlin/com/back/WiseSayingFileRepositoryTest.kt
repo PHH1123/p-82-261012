@@ -4,6 +4,7 @@ import com.back.domain.wiseSaying.entity.WiseSaying
 import org.assertj.core.api.Assertions
 import org.assertj.core.api.Assertions.*
 import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.BeforeEach
 import kotlin.test.Test
 
 class WiseSayingFileRepositoryTest {
@@ -19,10 +20,10 @@ class WiseSayingFileRepositoryTest {
         }
     }
 
-//    @BeforeEach
-//    fun setUp() {
-//        wiseSayingRepository.clear()
-//    }
+    @BeforeEach
+    fun setUp() {
+        wiseSayingRepository.clear()
+    }
 
     @Test
     fun `save`() {
@@ -46,6 +47,16 @@ class WiseSayingFileRepositoryTest {
         val foundWiseSaying = wiseSayingRepository.findById(wiseSaying.id)
 
         assertThat(foundWiseSaying).isEqualTo(wiseSaying)
+    }
+
+    @Test
+    fun `delete`() {
+        val wiseSaying = wiseSayingRepository
+            .save(WiseSaying("나의 죽음을 적들에게 알리지 말라.", "충무공 이순신"))
+
+        wiseSayingRepository.delete(wiseSaying)
+
+        assertThat(wiseSayingRepository.findById(wiseSaying.id)).isNull()
     }
 
     @Test
