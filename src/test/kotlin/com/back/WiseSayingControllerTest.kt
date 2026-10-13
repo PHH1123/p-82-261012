@@ -1,12 +1,17 @@
 package com.back
 
-import org.assertj.core.api.Assertions
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import kotlin.test.Test
 import kotlin.test.assertContains
 
-class AppTest {
+class WiseSayingControllerTest {
+
+    @BeforeEach
+    fun init() {
+        SingletonScope.wiseSayingRepository.clear()
+    }
 
     @Test
     @DisplayName("명언 작성")

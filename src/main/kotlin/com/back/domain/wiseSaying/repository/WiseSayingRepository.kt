@@ -21,4 +21,9 @@ class WiseSayingRepository {
         wiseSayings.firstOrNull { it.id == id }
 
     fun delete(wiseSaying: WiseSaying) = wiseSayings.remove(wiseSaying)
+
+    fun clear() {
+        wiseId = 0
+        wiseSayings.clear()
+    }
 }

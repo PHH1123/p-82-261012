@@ -1,11 +1,12 @@
 package com.back.domain.wiseSaying.controller
 
 import com.back.Rq
+import com.back.SingletonScope
 import com.back.domain.wiseSaying.entity.WiseSaying
 import com.back.domain.wiseSaying.service.WiseSayingService
 
 class WiseSayingController(
-    val wiseSayingService: WiseSayingService = WiseSayingService()
+    val wiseSayingService: WiseSayingService = SingletonScope.wiseSayingService
 ) {
 
     var wiseId = 0
