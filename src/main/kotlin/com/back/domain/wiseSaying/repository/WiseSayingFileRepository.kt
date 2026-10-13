@@ -2,6 +2,7 @@ package com.back.domain.wiseSaying.repository
 
 import com.back.AppConfig
 import com.back.JsonUtil
+import com.back.Page
 import com.back.domain.wiseSaying.entity.WiseSaying
 import java.nio.file.Path
 import kotlin.io.resolve
@@ -78,6 +79,7 @@ class WiseSayingFileRepository : WiseSayingRepository {
             ?.filter { it.name.endsWith(".json") }
             ?.map { it.readText() }
             ?.map(WiseSaying::fromJsonStr)
+            ?.sortedByDescending { it.id }
             .orEmpty()
     }
 
@@ -144,5 +146,34 @@ class WiseSayingFileRepository : WiseSayingRepository {
 
     override fun findByAuthorContent(wiseLike: String): List<WiseSaying> {
         return filterByKeyword(wiseLike) { it.wise }
+    }
+
+    override fun findByKeywordPaged(
+        keywordType: String,
+        keyword: String,
+        itemsPerPage: Int,
+        pageNo: Int
+    ): Page<WiseSaying> {
+
+        val wiseSayings = when (keywordType) {
+            "author" -> findByAuthorLike("%$keyword%")
+            else -> findByAuthorContent("%$keyword%")
+        }
+
+        val content = wiseSayings
+            .drop((pageNo - 1) * itemsPerPage)
+            .take(itemsPerPage)
+
+        return Page(wiseSayings.size, itemsPerPage, pageNo, keywordType, keyword, content)
+    }
+
+    override fun findListDescPaged(itemsPerPage: Int, pageNo: Int): Page<WiseSaying> {
+        val wiseSayings = findListDesc()
+
+        val content = wiseSayings
+            .drop((pageNo - 1) * itemsPerPage)
+            .take(itemsPerPage)
+
+        return Page(wiseSayings.size, itemsPerPage, pageNo, "", "", content)
     }
 }

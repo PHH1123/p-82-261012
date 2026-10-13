@@ -1,5 +1,6 @@
 package com.back.domain.wiseSaying.service
 
+import com.back.Page
 import com.back.SingletonScope
 import com.back.SingletonScope.wiseSayingMemRepository
 import com.back.domain.wiseSaying.entity.WiseSaying
@@ -34,5 +35,13 @@ class WiseSayingService
             "content" -> wiseSayingRepository.findByAuthorContent("%$keyword%")
             else -> wiseSayingRepository.findByAuthorContent("%$keyword%")
         }
+    }
+
+    fun findByKeywordPaged(keywordType: String, keyword: String, itemsPerPage: Int, pageNo: Int): Page<WiseSaying> {
+        return wiseSayingRepository.findByKeywordPaged(keywordType, keyword, itemsPerPage, pageNo)
+    }
+
+    fun findListDescPaged(itemsPerPage: Int, pageNo: Int): Page<WiseSaying> {
+        return wiseSayingRepository.findListDescPaged(itemsPerPage, pageNo)
     }
 }
